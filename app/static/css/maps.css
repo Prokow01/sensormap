@@ -1,0 +1,76 @@
+html {} 
+
+
+body {}
+
+.controller-pane {
+	z-index: 1;
+	position: absolute;
+	background: #2C2C27;
+	opacity: 0.75;
+	/*width: 20%; */
+	left: 40%;
+	padding: 10px;
+	/*top: 10px;
+/*	left: 50%; */
+}
+
+
+.controller-pane .btn {
+	/*padding: 10px;
+	/*z-index: inherit; */
+}
+
+.map-wrapper {
+	height: 100%; 
+	width: 100%; 
+	position:absolute; 
+  	top: 0; 
+  	left: 0; 
+  	z-index: 0; /* Set z-index to 0 as it will be the base layer */
+}
+
+#map-canvas {
+	height: 100%; 
+	/*margin: 0; 
+	padding: 0; 
+	z-index: 0; */
+}
+
+/*
+.content-wrapper {
+	z-index: 1;
+	position: relative;
+}
+*/
+
+.front-panels-wrapper {
+	z-index: 1;
+	position: absolute;
+	right: 10px;
+	width: 400px;
+	background: #2C2C27;
+	opacity: 0.75;
+	height: 90%;
+	padding: 10px;
+	top: 5%;
+	bottom: 10%;
+
+}
+
+.front-panels-wrapper .info {
+	position: relative;
+	color: white;
+	height: 70%;
+	padding: 10px;
+	overflow: scroll; 
+	/*font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
+}
+
+.info h4 {
+	/* save for later */
+}
+
+.info p {
+	color: white;
+}
