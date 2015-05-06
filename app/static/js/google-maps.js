@@ -5,16 +5,15 @@ var sensorArray = [];
 var infowindow = null;
 var sensorJSONRaw = {};
 
-
 function initialize() {
-	var mapOptions = {
-		center: { lat: 40.036137, lng: -75.340919},
-			zoom: 17,
+  var mapOptions = {
+    center: { lat: 40.036137, lng: -75.340919},
+      zoom: 17,
       scrollwheel: false
-	};
+  };
 
-	map = new google.maps.Map(document.getElementById('map-canvas'),
-		mapOptions);
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+    mapOptions);
 
     google.maps.event.addListener(map, 'click', function(event) {
     addMarker(event.latLng);
@@ -29,10 +28,10 @@ function initialize() {
 
 function showSensors() {
 
-	//cannot make global due to asynchronous Ajax Calls
-	var callResult = {};
+  //cannot make global due to asynchronous Ajax Calls
+  var callResult = {};
 
-	$.ajax({url:"http://127.0.0.1:5000/findSensors",success:function(result) { //change url
+  $.ajax({url:"http://127.0.0.1:5000/findSensors",success:function(result) { //change url
     callResult = result;
     sensorJSONRaw = callResult;
 
@@ -54,6 +53,9 @@ function showSensors() {
 
       markers.push(marker);
       marker.setMap(map);
+
+
+       bindInfoWindow(marker, map, infowindow, callResult[x]._id);
     } 
 
 
@@ -76,8 +78,25 @@ function showSensors() {
 
 }
 
+function bindInfoWindow(marker, map, infowindow, id) {
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(getInfoContent(id));
+        infowindow.open(map, marker);
+        updateWindowPane(id);
+    });
+}
+
 function createMarkers(type) {
   //modify the views to handle different types of points
+}
+
+function getInfoContent(id) {
+    var content;
+    $.ajax({async: false, url: "http://127.0.0.1:5000/getInfoPane/" + id, success:function(result) { //change url
+        content = result;
+    }});
+
+  return content;
 }
 
 function hideMarkers() {
@@ -96,5 +115,11 @@ function toggleBounce() {
   }
 }
 
+function updateWindowPane(id) {
+      $.ajax({async: false, url: "http://127.0.0.1:5000/updateWindowPane/" + id, success:function(result) { //change url
+        
+        $( ".info" ).replaceWith($(result));
+    }});
+}
 
 google.maps.event.addDomListener(window, 'load', initialize);

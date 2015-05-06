@@ -6,4 +6,7 @@ $(document).ready(function(){
     $(".btn-toggle").click(function(){
         $(".front-panels-wrapper").toggle();
     });
+
+    $('#itable').DataTable();
+
 });

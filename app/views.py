@@ -29,21 +29,6 @@ def findSensors():
 	return jsonify(records)
 	#returns basic list of sensors and their respective locations
 
-@app.route('/test')
-def test():
-	latitudes = ['40.033782', '40.033950', '40.034807', '40.034965', 
-	'40.035252', '40.035737', '40.036000', '40.036875', '40.037027', 
-	'40.037852',  '40.037799']
-	
-	longitudes = ['-75.339226', '-75.339194', '-75.339939', '-75.339902', 
-	'-75.339663', '-75.340902', '-75.341535', '-75.341857', '-75.342764', 
-	'-75.342544', '-75.342088']
-	
-	path_coords = {'userID' : '0001', 'latitudes' : latitudes, 'longitudes' : longitudes}
-	
-	return jsonify(path_coords)
-
-
 def db_test():
 	e = mongo.db.sensors_generic.find()
 	g = mongo.db.regions.find()
@@ -55,3 +40,23 @@ def render_component():
 	q = request.args['comp']
 	result = q + ".html"
 	return render_template(result)
+
+
+@app.route('/retrieveTest')
+def retrieveTest():
+	return render_template("AjaxTest.html")
+
+@app.route('/getInfoPane/<int:sensorId>')
+def getContent(sensorId):
+	e = mongo.db.sensor_data.find({"sensorId" : sensorId})
+	return render_template("infoWindow.html", content=e)
+
+@app.route('/testInfoPane/<int:sensorId>')
+def testContent(sensorId):
+	e = mongo.db.sensor_data.find({"sensorId" : sensorId})
+	return render_template("testDataTable.html", content=e)
+
+@app.route('/updateWindowPane/<int:sensorId>')
+def updatePane(sensorId):
+	e = mongo.db.sensors_generic.find({"_id": sensorId})
+	return render_template("info-pane.html", content = e)

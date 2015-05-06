@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<html>
-	<head>
-		<title>Geo Map Tool</title>
-		{% include "header.html" %}
-	</head>
-	<body>
-		
+{% extends "pageLayoutTemplate.html" %}
+	{% block title %} 
+		Map Tool 
+	{% endblock %}
 
+	{% block head %} 
+		{{ super() }} 
+	{% endblock %}
+
+	{% block content %}
 		<div class="map-wrapper">
 			<div id="map-canvas"></div>
 		</div>
 
 		<div class="controller-pane">
-	  		<button class="btn" onclick="showSensors()">Sensors</button>
-	  		<button class="btn" onclick="hideMarkers()">Hide</button>
-	  		<button class="btn btn-toggle">Toggle Windows</button>
+	  		<button class="button" onclick="showSensors()">Sensors</button>
+	  		<button class="button" onclick="hideMarkers()">Hide</button>
+	  		<button class="button btn-toggle">Windows</button>
   		</div>
 
 		<div class="front-panels-wrapper">
@@ -25,7 +25,8 @@
 				<div id="weather"></div>
 			</div>
 		</div>
-
-		{% include "footer.html" %}
-	</body>
-</html>
+	{% endblock %}
+		
+	{% block footer %} 
+		{{ super() }} 
+	{% endblock %}
